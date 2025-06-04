@@ -1,0 +1,54 @@
+# # devconfig.yaml in your web_test_app directory
+server:
+# # Custom HTTP Headers to inject
+#   headers:
+#     - "X-Custom-Header=MyDevAppValue"
+#     - "Cache-Control=no-cache, no-store, must-revalidate"
+#     - "X-Another-Dev-Header=ThisIsTestValue"
+
+#   # Host and Port for the development server
+  host: 0.0.0.0  # Listen on all network interfaces (for testing from other devices)
+  port: 7070     # A custom port
+
+#   # HTTPS Configuration (requires certificate and key files)
+#   # For testing, you can generate self-signed certs or omit this section initially.
+#   # To generate self-signed certs (for testing only):
+#   # openssl req -x509 -newkey rsa:2048 -nodes -keyout key.pem -out cert.pem -days 365
+#   # Fill in the prompts. Make sure key.pem and cert.pem are in the web_test_app directory.
+#   # https:
+#   #   cert-path: cert.pem
+#   #   cert-key-path: key.pem
+
+  # Proxy Rules
+  # This example proxies requests starting with /api to a JSON Placeholder API
+  proxy:
+    /posts:
+      target: https://jsonplaceholder.typicode.com
+    /dart:
+      target: http://127.0.0.1:8080/
+    /api:
+      target: http://localhost:3000/
+    /assets:
+      target: 'http://localhost:3000/'
+    /other-path:
+      target: 'http://localhost:3000/'
+    # NEW REGEX PROXY RULE FOR USERS
+    ^/api/jsonplaceholder/users/(\\d+)$:
+      target: https://jsonplaceholder.typicode.com
+      rewrite: '^/api/jsonplaceholder/users/(\\d+)$ -> /users/$1'
+    # NEW REGEX PROXY RULE FOR POSTS (another example)
+    ^/api/jsonplaceholder/posts/(\\d+)$:
+      target: https://jsonplaceholder.typicode.com
+      rewrite: '^/api/jsonplaceholder/posts/(\\d+)$ -> /posts/$1'
+
+#   # Browser Configuration (conceptual, not directly handled by shelf server)
+#   # These flags/debug port would need to be integrated into Flutter's browser launching logic.
+#   browser:
+#     debug-port: 9222
+#     flags:
+#       - "--incognito"
+#       - "--disable-gpu"
+
+#   # Experimental Hot Reload (conceptual, not directly handled by shelf server)
+#   # This would need integration with Flutter's hot reload mechanism.
+#   experimental-hot-reload: true
