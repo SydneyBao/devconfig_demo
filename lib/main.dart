@@ -144,20 +144,20 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       const SizedBox(height: 10),
-                      // ElevatedButton(
-                      //   onPressed: _isLoading
-                      //       ? null
-                      //       : () => _makeRequest('/dart'),
-                      //   child: const Text('Fetch /dart (Dart backend)'),
-                      // ),
-                      // const SizedBox(height: 10),
-                      // ElevatedButton(
-                      //   onPressed: _isLoading
-                      //       ? null
-                      //       : () => _makeRequest('dart/'),
-                      //   child: const Text('Fetch dart/ (Dart backend)'),
-                      // ),
-                      // const SizedBox(height: 10),
+                      ElevatedButton(
+                        onPressed: _isLoading
+                            ? null
+                            : () => _makeRequest('/dart/'),
+                        child: const Text('Fetch /dart/ (Dart backend)'),
+                      ),
+                      const SizedBox(height: 10),
+                      ElevatedButton(
+                        onPressed: _isLoading
+                            ? null
+                            : () => _makeRequest('dart/'),
+                        child: const Text('Fetch dart/ (Dart backend)'),
+                      ),
+                      const SizedBox(height: 10),
                       ElevatedButton(
                         onPressed: _isLoading
                             ? null
