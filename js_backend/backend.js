@@ -41,7 +41,7 @@ app.get('/assets/image.png', (req, res) => {
 });
 
 // Route to simulate other assets or unmatched paths
-app.get('/other-path', (req, res) => {
+app.get('/', (req, res) => {
     res.send('This is a response from /other-path on the backend.');
 });
 

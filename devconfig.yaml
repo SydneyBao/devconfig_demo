@@ -7,7 +7,7 @@ server:
 #     - "X-Another-Dev-Header=ThisIsTestValue"
 
 #   # Host and Port for the development server
-  host: 0.0.0.0  # Listen on all network interfaces (for testing from other devices)
+  host: 127.0.0.1  # Listen on all network interfaces (for testing from other devices)
   port: 7070     # A custom port
 
 #   # HTTPS Configuration (requires certificate and key files)
@@ -20,26 +20,21 @@ server:
 #   #   cert-key-path: key.pem
 
   # Proxy Rules
-  # This example proxies requests starting with /api to a JSON Placeholder API
   proxy:
-    /posts:
+    ^/api/jsonplaceholder/users/(\d+)$:
       target: https://jsonplaceholder.typicode.com
-    /dart:
-      target: http://127.0.0.1:8080/
-    /api:
+      rewrite: '^/api/jsonplaceholder/users/(\d+)$ -> /users/$1'
+    ^/api/jsonplaceholder/posts/(\d+)$:
+      target: https://jsonplaceholder.typicode.com
+      rewrite: '^/api/jsonplaceholder/posts/(\d+)$ -> /posts/$1'
+    /posts/:
+      target: https://jsonplaceholder.typicode.com
+    /dart/:
+      target: 'http://localhost:8080/'
+      rewrite: true
+    /api/:
       target: http://localhost:3000/
-    /assets:
-      target: 'http://localhost:3000/'
-    /other-path:
-      target: 'http://localhost:3000/'
-    # NEW REGEX PROXY RULE FOR USERS
-    ^/api/jsonplaceholder/users/(\\d+)$:
-      target: https://jsonplaceholder.typicode.com
-      rewrite: '^/api/jsonplaceholder/users/(\\d+)$ -> /users/$1'
-    # NEW REGEX PROXY RULE FOR POSTS (another example)
-    ^/api/jsonplaceholder/posts/(\\d+)$:
-      target: https://jsonplaceholder.typicode.com
-      rewrite: '^/api/jsonplaceholder/posts/(\\d+)$ -> /posts/$1'
+
 
 #   # Browser Configuration (conceptual, not directly handled by shelf server)
 #   # These flags/debug port would need to be integrated into Flutter's browser launching logic.

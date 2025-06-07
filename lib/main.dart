@@ -41,9 +41,6 @@ class _HomePageState extends State<HomePage> {
     });
 
     try {
-      // For web, Flutter's http client automatically handles relative paths
-      // by prepending the current host. So, if your web server is running on
-      // localhost:8080, a request to '/api/...' will go to localhost:8080/api/...
       final Uri uri = Uri.parse(path);
       http.Response response;
 
@@ -70,6 +67,7 @@ class _HomePageState extends State<HomePage> {
               'Response from $path (Status: ${response.statusCode}):\n$formattedBody';
         });
       } else {
+        print('Response status code: ${response.statusCode}');
         setState(() {
           _responseText =
               'Failed to load data from $path: ${response.statusCode}\n${response.body}';
@@ -96,7 +94,6 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              //--- Display Area ---
               Container(
                 padding: const EdgeInsets.all(8.0),
                 margin: const EdgeInsets.only(bottom: 20.0),
@@ -107,19 +104,14 @@ class _HomePageState extends State<HomePage> {
                 constraints: const BoxConstraints(
                   minHeight: 120,
                   maxHeight: 300,
-                ), // Adjusted height
+                ),
                 width: double.infinity,
                 child: SingleChildScrollView(
-                  child: Text(
-                    _responseText,
-                    textAlign: TextAlign.left,
-                  ), // Align left for better JSON display
+                  child: Text(_responseText, textAlign: TextAlign.left),
                 ),
               ),
 
-              //--- API Endpoints from Node.js Backend ---
               Expanded(
-                // Use Expanded to give buttons flexible space
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
@@ -135,15 +127,6 @@ class _HomePageState extends State<HomePage> {
                       ElevatedButton(
                         onPressed: _isLoading
                             ? null
-                            : () => _makeRequest('/assets/image.png'),
-                        child: const Text(
-                          'Fetch /assets/image.png (Node.js backend)',
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      ElevatedButton(
-                        onPressed: _isLoading
-                            ? null
                             : () => _makeRequest(
                                 '/api/submit',
                                 method: 'POST',
@@ -152,44 +135,45 @@ class _HomePageState extends State<HomePage> {
                         child: const Text('POST /api/submit (Node.js backend)'),
                       ),
                       const SizedBox(height: 10),
-                      ElevatedButton(
-                        onPressed: _isLoading
-                            ? null
-                            : () => _makeRequest('/posts/1'),
-                        child: const Text(
-                          'Fetch /posts/1 (jsonplaceholder.typicode.com)',
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      ElevatedButton(
-                        onPressed: _isLoading
-                            ? null
-                            : () => _makeRequest('/dart/hello'),
-                        child: const Text('Fetch /dart/hello (Dart backend)'),
-                      ),
-                      const SizedBox(height: 10),
+                      // ElevatedButton(
+                      //   onPressed: _isLoading
+                      //       ? null
+                      //       : () => _makeRequest('/posts/1'),
+                      //   child: const Text(
+                      //     'Fetch /posts/1 (jsonplaceholder.typicode.com)',
+                      //   ),
+                      // ),
+                      // const SizedBox(height: 10),
+                      // ElevatedButton(
+                      //   onPressed: _isLoading
+                      //       ? null
+                      //       : () => _makeRequest('/dart/hello'),
+                      //   child: const Text('Fetch /dart/hello (Dart backend)'),
+                      // ),
+                      // const SizedBox(height: 10),
                       ElevatedButton(
                         onPressed: _isLoading
                             ? null
                             : () => _makeRequest('/dart/data'),
-                        child: const Text('Fetch /dart/data (Dart backend)'),
+                        child: const Text(
+                          'Fetch /dart/data  using rewrite: true (Dart backend)',
+                        ),
                       ),
                       const SizedBox(height: 10),
-                      ElevatedButton(
-                        onPressed: _isLoading
-                            ? null
-                            : () => _makeRequest('/dart'),
-                        child: const Text('Fetch /dart (Dart backend)'),
-                      ),
-                      const SizedBox(height: 10),
-                      ElevatedButton(
-                        onPressed: _isLoading
-                            ? null
-                            : () => _makeRequest('dart/'),
-                        child: const Text('Fetch dart/ (Dart backend)'),
-                      ),
-                      const SizedBox(height: 10),
-                      // NEW REGEX TEST BUTTONS
+                      // ElevatedButton(
+                      //   onPressed: _isLoading
+                      //       ? null
+                      //       : () => _makeRequest('/dart'),
+                      //   child: const Text('Fetch /dart (Dart backend)'),
+                      // ),
+                      // const SizedBox(height: 10),
+                      // ElevatedButton(
+                      //   onPressed: _isLoading
+                      //       ? null
+                      //       : () => _makeRequest('dart/'),
+                      //   child: const Text('Fetch dart/ (Dart backend)'),
+                      // ),
+                      // const SizedBox(height: 10),
                       ElevatedButton(
                         onPressed: _isLoading
                             ? null
