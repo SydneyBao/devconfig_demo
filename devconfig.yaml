@@ -27,8 +27,6 @@ server:
     ^/api/jsonplaceholder/posts/(\d+)$:
       target: https://jsonplaceholder.typicode.com
       rewrite: '^/api/jsonplaceholder/posts/(\d+)$ -> /posts/$1'
-    /posts/:
-      target: https://jsonplaceholder.typicode.com
     /dart/:
       target: 'http://localhost:8080/'
       rewrite: true

@@ -10,17 +10,14 @@ void main() async {
 
   await for (HttpRequest request in server) {
     try {
-      // Corrected: Check for '/' instead of '' for the root path
       if (request.uri.path == '/') {
         request.response.headers.contentType = ContentType.text;
-        request.response.write('Slashes are not necessary!');
-      } else if (request.uri.path == '/dart/hello') {
-        request.response.headers.contentType = ContentType.text;
-        request.response.write('Hello from Dart Backend!');
+        request.response.write('Rewrite: true works!');
       } else if (request.uri.path == '/data') {
         request.response.headers.contentType = ContentType.json;
         final jsonData = {
-          'message': 'This is some data from the backend!',
+          'message':
+              'This is some data from http://$host:$port${request.uri.path}',
           'items': [
             {'id': 1, 'name': 'Item A'},
             {'id': 3, 'name': 'Item C'},

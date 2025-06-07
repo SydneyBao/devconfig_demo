@@ -135,22 +135,6 @@ class _HomePageState extends State<HomePage> {
                         child: const Text('POST /api/submit (Node.js backend)'),
                       ),
                       const SizedBox(height: 10),
-                      // ElevatedButton(
-                      //   onPressed: _isLoading
-                      //       ? null
-                      //       : () => _makeRequest('/posts/1'),
-                      //   child: const Text(
-                      //     'Fetch /posts/1 (jsonplaceholder.typicode.com)',
-                      //   ),
-                      // ),
-                      // const SizedBox(height: 10),
-                      // ElevatedButton(
-                      //   onPressed: _isLoading
-                      //       ? null
-                      //       : () => _makeRequest('/dart/hello'),
-                      //   child: const Text('Fetch /dart/hello (Dart backend)'),
-                      // ),
-                      // const SizedBox(height: 10),
                       ElevatedButton(
                         onPressed: _isLoading
                             ? null
