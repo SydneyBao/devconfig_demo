@@ -120,7 +120,7 @@ class _HomePageState extends State<HomePage> {
                             ? null
                             : () => _makeRequest('/api/users/123'),
                         child: const Text(
-                          'Fetch /api/users/123 (Node.js backend)',
+                          'Fetch /api/users/123 without rewrite.',
                         ),
                       ),
                       const SizedBox(height: 10),
@@ -132,51 +132,41 @@ class _HomePageState extends State<HomePage> {
                                 method: 'POST',
                                 body: {'name': 'Flutter User', 'value': 42},
                               ),
-                        child: const Text('POST /api/submit (Node.js backend)'),
+                        child: const Text('POST /api/submit'),
                       ),
                       const SizedBox(height: 10),
                       ElevatedButton(
                         onPressed: _isLoading
                             ? null
-                            : () => _makeRequest('/dart/data'),
+                            : () => _makeRequest('/users/456/profile/summary'),
                         child: const Text(
-                          'Fetch /dart/data  using rewrite: true (Dart backend)',
+                          'Fetch /users/456/profile/summary. Replacing with remainder.',
                         ),
                       ),
                       const SizedBox(height: 10),
                       ElevatedButton(
                         onPressed: _isLoading
                             ? null
-                            : () => _makeRequest('/dart/'),
-                        child: const Text('Fetch /dart/ (Dart backend)'),
+                            : () => _makeRequest('/dart/hello'),
+                        child: const Text('Fetch /dart/hello with rewrite.'),
                       ),
                       const SizedBox(height: 10),
                       ElevatedButton(
                         onPressed: _isLoading
                             ? null
-                            : () => _makeRequest('dart/'),
-                        child: const Text('Fetch dart/ (Dart backend)'),
+                            : () => _makeRequest('/users/1'),
+                        child: const Text('Fetch /users/1 without replace.'),
                       ),
                       const SizedBox(height: 10),
-                      ElevatedButton(
-                        onPressed: _isLoading
-                            ? null
-                            : () =>
-                                  _makeRequest('/api/jsonplaceholder/users/1'),
-                        child: const Text(
-                          'Fetch /api/jsonplaceholder/users/1 (Regex Proxy)',
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      ElevatedButton(
-                        onPressed: _isLoading
-                            ? null
-                            : () =>
-                                  _makeRequest('/api/jsonplaceholder/posts/5'),
-                        child: const Text(
-                          'Fetch /api/jsonplaceholder/posts/5 (Regex Proxy)',
-                        ),
-                      ),
+                      // ElevatedButton(
+                      //   onPressed: _isLoading
+                      //       ? null
+                      //       : () =>
+                      //             _makeRequest('/api/jsonplaceholder/posts/5'),
+                      //   child: const Text(
+                      //     'Fetch /api/jsonplaceholder/posts/5 (Regex Proxy)',
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
