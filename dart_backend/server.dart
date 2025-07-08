@@ -13,21 +13,9 @@ void main() async {
       if (request.uri.path == '/hello') {
         request.response.headers.contentType = ContentType.text;
         request.response.write('Response from ${request.uri.path}: Hello!');
-      }
-      // else if (request.uri.path == '/data') {
-      //   request.response.headers.contentType = ContentType.json;
-      //   final jsonData = {
-      //     'message':
-      //         'This is some data from http://$host:$port${request.uri.path}',
-      //     'items': [
-      //       {'id': 1, 'name': 'Item A'},
-      //       {'id': 3, 'name': 'Item C'},
-      //     ],
-      //     'timestamp': DateTime.now().toIso8601String(),
-      //   };
-      //   request.response.write(jsonEncode(jsonData));
-      // }
-      else if (request.uri.path == '/users/info/summary') {
+      } else if (request.uri.path == '/users/summary' ||
+          request.uri.path == '/users/infoname/summary' ||
+          request.uri.path == '/people/users/info') {
         request.response.write('Response from ${request.uri.path}!');
       } else {
         request.response.statusCode = HttpStatus.notFound;

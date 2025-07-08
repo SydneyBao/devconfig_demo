@@ -63,8 +63,7 @@ class _HomePageState extends State<HomePage> {
           formattedBody = response.body;
         }
         setState(() {
-          _responseText =
-              'Response from $path (Status: ${response.statusCode}):\n$formattedBody';
+          _responseText = '(Status: ${response.statusCode}):\n$formattedBody';
         });
       } else {
         print('Response status code: ${response.statusCode}');
@@ -120,7 +119,50 @@ class _HomePageState extends State<HomePage> {
                             ? null
                             : () => _makeRequest('/api/users/123'),
                         child: const Text(
-                          'Fetch /api/users/123 without rewrite.',
+                          'Fetch /api/users/123 without rewrite',
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      ElevatedButton(
+                        onPressed: _isLoading
+                            ? null
+                            : () => _makeRequest('/users/1'),
+                        child: const Text('Fetch /users/1 without replace'),
+                      ),
+                      const SizedBox(height: 10),
+                      ElevatedButton(
+                        onPressed: _isLoading
+                            ? null
+                            : () => _makeRequest('/dart/hello'),
+                        child: const Text('Fetch /dart/hello with rewrite'),
+                      ),
+                      const SizedBox(height: 10),
+                      ElevatedButton(
+                        onPressed: _isLoading
+                            ? null
+                            : () => _makeRequest('/users/456/profile/summary'),
+                        child: const Text(
+                          'Fetch /users/456/profile/summary. Replacing with remainder',
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      ElevatedButton(
+                        onPressed: _isLoading
+                            ? null
+                            : () => _makeRequest(
+                                '/users/456/profilename/summary',
+                              ),
+                        child: const Text(
+                          'Fetch /users/456/profilename/summary. Replace matches exact portion',
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      ElevatedButton(
+                        onPressed: _isLoading
+                            ? null
+                            : () => _makeRequest('/people/users/456/profile'),
+                        child: const Text(
+                          'Fetch /people/users/456/profile. Use ^ to match beginning of string',
                         ),
                       ),
                       const SizedBox(height: 10),
@@ -135,38 +177,6 @@ class _HomePageState extends State<HomePage> {
                         child: const Text('POST /api/submit'),
                       ),
                       const SizedBox(height: 10),
-                      ElevatedButton(
-                        onPressed: _isLoading
-                            ? null
-                            : () => _makeRequest('/users/456/profile/summary'),
-                        child: const Text(
-                          'Fetch /users/456/profile/summary. Replacing with remainder.',
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      ElevatedButton(
-                        onPressed: _isLoading
-                            ? null
-                            : () => _makeRequest('/dart/hello'),
-                        child: const Text('Fetch /dart/hello with rewrite.'),
-                      ),
-                      const SizedBox(height: 10),
-                      ElevatedButton(
-                        onPressed: _isLoading
-                            ? null
-                            : () => _makeRequest('/users/1'),
-                        child: const Text('Fetch /users/1 without replace.'),
-                      ),
-                      const SizedBox(height: 10),
-                      // ElevatedButton(
-                      //   onPressed: _isLoading
-                      //       ? null
-                      //       : () =>
-                      //             _makeRequest('/api/jsonplaceholder/posts/5'),
-                      //   child: const Text(
-                      //     'Fetch /api/jsonplaceholder/posts/5 (Regex Proxy)',
-                      //   ),
-                      // ),
                     ],
                   ),
                 ),

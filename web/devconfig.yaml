@@ -1,73 +1,39 @@
-# # devconfig.yaml in your web_test_app directory
+# # # # devconfig.yaml in your web_test_app directory
 server:
-# # Custom HTTP Headers to inject
+# # # Custom HTTP Request Headers to inject
 #   headers:
-#     - "X-Custom-Header=MyDevAppValue"
-#     - "Cache-Control=no-cache, no-store, must-revalidate"
-#     - "X-Another-Dev-Header=ThisIsTestValue"
+#     # X-Custom-Header: "MyDevAppValue"
+#     # Cache-Control: "no-cache, no-store, must-revalidate"
 
-#   # Host and Port for the development server
-  host: 127.0.0.1  # Listen on all network interfaces (for testing from other devices)
-  port: 7070     # A custom port
+# # #   # Host and Port for the development server
+# #   # host: 192.0.0.2  # Listen on all network interfaces (for testing from other devices)
+  port: 7070    # A custom port
 
-#   # HTTPS Configuration (requires certificate and key files)
-#   # For testing, you can generate self-signed certs or omit this section initially.
-#   # To generate self-signed certs (for testing only):
-#   # openssl req -x509 -newkey rsa:2048 -nodes -keyout key.pem -out cert.pem -days 365
-#   # Fill in the prompts. Make sure key.pem and cert.pem are in the web_test_app directory.
-#   # https:
-#   #   cert-path: cert.pem
-#   #   cert-key-path: key.pem
+# #   # HTTPS Configuration (requires certificate and key files)
+# #   # For testing, you can generate self-signed certs or omit this section initially.
+# #   # To generate self-signed certs (for testing only):
+# #   # openssl req -x509 -newkey rsa:2048 -nodes -keyout key.pem -out cert.pem -days 365
+# #   # Fill in the prompts. Make sure key.pem and cert.pem are in the web_test_app directory.
+# #   # https:
+# #   #   cert-path: hello.local.key.pem
+# #   #   cert-key-path: null
 
-  # Proxy Rules
-  # proxy:
-  #   ^/users/(\d+)/profile:
-  #     target: http://localhost:8080/ 
-  #     rewrite: '^/users/(\d+)/profile->/users/info'
-  #   ^/api/jsonplaceholder/users/(\d+)$/:
-  #     target: https://jsonplaceholder.typicode.com
-  #     rewrite: '^/api/jsonplaceholder/users/(\d+)$ -> /users/$1'
-  #   ^/api/jsonplaceholder/posts/(\d+)$/:
-  #     target: https://jsonplaceholder.typicode.com
-  #     rewrite: '^/api/jsonplaceholder/posts/(\d+)$ -> /posts/$1'
-    # /dart/:
-    #   target: 'http://localhost:8080/'
-    #   rewrite: true
-    # /api/:
-    #   target: http://localhost:3000/
   proxy:
-    #rewriting with remainder. Regex with Replace
-    - target: http://localhost:8080/ 
-      regex: /users/(\d+)/profile
-      replace: /users/info
-
-    # - target: https://jsonplaceholder.typicode.com
-    #   regex: '^/api/jsonplaceholder/posts/(\d+)$'
-    #   replace: '/posts/$1'
-    
-    #Source with rewrite. No ending /
-    - target: 'http://localhost:8080/'
-      source: /dart
-      rewrite: true
-    
     #Source without rewrite
     #Must be above for /api/users/123 to match with this and not the one below
     - target: http://localhost:3000/
-      source: /api/
+      source: /api
     
     #Regex without replace
     - target: https://jsonplaceholder.typicode.com
       regex: '/users/(\d+)$'
+    
+    #Source with rewrite.
+    - target: 'http://localhost:8080/'
+      source: /dart
+      replace: ""
 
-
-#   # Browser Configuration (conceptual, not directly handled by shelf server)
-#   # These flags/debug port would need to be integrated into Flutter's browser launching logic.
-#   browser:
-#     debug-port: 9222
-#     flags:
-#       - "--incognito"
-#       - "--disable-gpu"
-
-#   # Experimental Hot Reload (conceptual, not directly handled by shelf server)
-#   # This would need integration with Flutter's hot reload mechanism.
-#   experimental-hot-reload: true
+    #rewriting with remainder. Regex with Replace. Add ^ to front of regex to prevent /people/users from matching
+    - target: http://localhost:8080/ 
+      regex: /users/(\d+)/profile
+      replace: /users/info
