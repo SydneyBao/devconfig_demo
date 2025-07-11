@@ -1,9 +1,9 @@
 # # # # devconfig.yaml in your web_test_app directory
 server:
 # # # Custom HTTP Request Headers to inject
-#   headers:
-#     # X-Custom-Header: "MyDevAppValue"
-#     # Cache-Control: "no-cache, no-store, must-revalidate"
+  headers:
+    X-Custom-Header: "MyDevAppValue"
+    Cache-Control: "no-cache, no-store, must-revalidate"
 
 # # #   # Host and Port for the development server
 # #   # host: 192.0.0.2  # Listen on all network interfaces (for testing from other devices)
