@@ -2,8 +2,10 @@
 server:
 # # # Custom HTTP Request Headers to inject
   headers:
-    X-Custom-Header: "MyDevAppValue"
-    Cache-Control: "no-cache, no-store, must-revalidate"
+    - name: "X-Custom_Header"
+      value: "MyDevAppValue"
+    - name: "Cache-Control"
+      value: "no-cache, no-store, must-revalidate"
 
 # # #   # Host and Port for the development server
 # #   # host: 192.0.0.2  # Listen on all network interfaces (for testing from other devices)
@@ -22,7 +24,10 @@ server:
     #Source without rewrite
     #Must be above for /api/users/123 to match with this and not the one below
     - target: http://localhost:3000/
-      source: /api
+      prefix: /api
+      headers: 
+      - name: "X-Custom_Header"
+        value: "MyDevAppValue"
     
     #Regex without replace
     - target: https://jsonplaceholder.typicode.com
@@ -30,7 +35,7 @@ server:
     
     #Source with rewrite.
     - target: 'http://localhost:8080/'
-      source: /dart
+      prefix: /dart
       replace: ""
 
     #rewriting with remainder. Regex with Replace. Add ^ to front of regex to prevent /people/users from matching
